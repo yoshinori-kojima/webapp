@@ -1,0 +1,33 @@
+{
+  //"extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+     "target": "ESNext"
+    //,"module": "ESNext"
+    ,"module": "ESNext"
+    ,"moduleResolution": "node"                 //
+    ,"strict": true
+    //,"moduleResolution": "node"                 //
+    //,"moduleResolution": "Node"
+    ,"esModuleInterop": true                      //モジュールがdefault export されていない場合はdefaultとして扱う
+    ,"isolatedModules": true                      //ファイルごとにコンパイルを行う
+    ,"lib": ["DOM", "DOM.Iterable", "ESNext"]
+    ,"useDefineForClassFields": true
+    ,"allowJs": false
+    ,"skipLibCheck": true
+    ,"forceConsistentCasingInFileNames": true
+    //,"moduleResolution": "Node"
+    //,"moduleResolution": "bundler"
+    ,"resolveJsonModule": true                    //import文でjsonファイルを読み込めるようにする
+    ,"allowSyntheticDefaultImports": true
+    ,"noEmit"     :false                          //コンパイル結果を出力するか
+    //ディレクトリ関連
+    ,"rootDir"    :"src"                          //Typescriptファイルのルートディレクトリ
+    ,"baseUrl"    :"src"                          //import文のルートディレクトリ
+    ,"outDir"     :"dist"                         //コンパイル結果の出力先
+  },
+  "include": ["src/"],                            //コンパイル対象のファイル
+  "exclude": ["node_modules", "dist"],            //デフォルトではnode_moduleとoutputDirは除外される
+  "references": [
+    { "path": "../shared" }
+  ]
+}

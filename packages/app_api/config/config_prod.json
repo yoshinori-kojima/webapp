@@ -1,0 +1,14 @@
+{
+  "username": "dbuser",
+  "password": "sb%Aa23a2",
+  "database": "dbuser",
+  "host": "35.78.60.25",
+  "dialect": "postgres",
+  "timezone": "Asia/Tokyo",
+  "pool": [{
+    "max": 5,
+    "min": 0,
+    "acquire": 30000,
+    "idle": 10000
+  }]
+}
