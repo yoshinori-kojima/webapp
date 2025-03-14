@@ -8,6 +8,6 @@
   - ページ遷移
 
 ## リポジトリ構成
-- pnpmを活用してmonorepoプロジェクト構成となっています。
+- pnpmを活用してmonorepo構成となっています。
   - フロントエンド：app_frontend + shared
   - バックエンド  ：app_api      + shared
