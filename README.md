@@ -12,6 +12,6 @@
   - 起動時間帯：平日 09:00 - 18:00
   
 ## リポジトリ構成
-- pnpmを活用してmonorepo構成となっています。
+- pnpmを活用したmonorepo構成です。
   - フロントエンド：app_frontend + shared
   - バックエンド  ：app_api      + shared
