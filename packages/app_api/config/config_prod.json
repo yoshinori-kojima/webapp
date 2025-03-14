@@ -1,8 +1,8 @@
 {
-  "username": "dbuser",
-  "password": "sb%Aa23a2",
-  "database": "dbuser",
-  "host": "35.78.60.25",
+  "username": "*****",
+  "password": "*****",
+  "database": "*****",
+  "host": "*****",
   "dialect": "postgres",
   "timezone": "Asia/Tokyo",
   "pool": [{
