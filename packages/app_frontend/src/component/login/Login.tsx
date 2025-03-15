@@ -204,6 +204,10 @@ const Login: React.FC = () => {
           <Box sx={{ p: 0.5, backgroundColor: errMessage ? 'rgba(255,0,0,0.1)' : 'transparent', color: 'red', mb: 1, minHeight: '1.5em' }}>
             {errMessage ? errMessage : ''}
           </Box>
+
+          <Typography align="center">ログインID：1234</Typography>
+          <Typography align="center">パスワード ：12ab34cd</Typography>
+
         </Card>
       </Box>
       <Footer />
