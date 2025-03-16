@@ -5,7 +5,11 @@ import {
   Box,
   Drawer,
   Toolbar,
+  useMediaQuery,
+  useTheme,
+  IconButton,
 } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
 //jotai
 import { useAtom } from 'jotai';
 import { expandedAtom } from '../../atom';
@@ -36,6 +40,11 @@ const treeItemStyles = {
 
 const SideBar = () => {
   const navigate = useNavigate();
+  //モバイル端末判定
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [mobileOpen, setMobileOpen] = useState(false);        // temporary variant 用の開閉状態
+  //メニューリスト
   const [menulist, setMenuList] = useState<FuncTreeNode[]>([]);
   const [expanded, setExpanded] = useAtom(expandedAtom);
 
@@ -60,6 +69,10 @@ const SideBar = () => {
     getMenu();
   }, [navigate]);
 
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
   //リンククリック時にSimpleTreeViewの展開を止める
   const handleLinkClick=(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.stopPropagation();
@@ -75,55 +88,79 @@ const SideBar = () => {
   };
 
   return (
-    <Drawer
-      variant="permanent"           // 一時的なDrawerを永続的なDrawerに変更
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: {   // このスタイルはDrawerコンポーネントのpaperクラスに適用される
-          width: drawerWidth,       // Drawerの幅を設定
-          boxSizing: "border-box",  // ボックスサイジングをborder-boxに設定
-          //backgroundImage: `linear-gradient(to right bottom, #FFFFFF, #EEFFFF)`,
-          background: '#EEEEEE',
-        },
-      }}
-    >
-      <Toolbar />
-        <Box sx={{height: 800, mt:2}}>
-          {/*トップページ */}
-          <Box display="flex" justifyContent="flex-start" sx={{ml:6}} width="200" >
-            <Link to="/Top"
-              style={{
-                 fontSize: '1.0em'
-                ,color:'black'
-                ,display:'block'
-                ,paddingRight: '100px'
-                ,paddingBottom: '10px'
-              }}>
-              トップページ
-            </Link>
+  <>
+    <Box sx={{ display: 'flex' }} justifyContent="flex-start">
+      {isMobile && (
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{
+            position: 'fixed',      //ビューポートに対して固定
+            top: theme.spacing(8),
+            left: theme.spacing(2),
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
+      )}
+      </Box>
+      <Drawer
+        variant={isMobile ? 'temporary' : 'permanent'} // モバイル端末の場合は一時的なDrawerに変更
+        open={isMobile ? mobileOpen : true}
+        onClose={handleDrawerToggle} // temporary variant の場合に必要
+          ModalProps={{
+            keepMounted: true, // パフォーマンス向上のため
+          }}
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {   // このスタイルはDrawerコンポーネントのpaperクラスに適用される
+            width: drawerWidth,       // Drawerの幅を設定
+            boxSizing: "border-box",  // ボックスサイジングをborder-boxに設定
+            //backgroundImage: `linear-gradient(to right bottom, #FFFFFF, #EEFFFF)`,
+            background: '#EEEEEE',
+          },
+        }}
+      >
+        <Toolbar />
+          <Box sx={{height: 800, mt:2}}>
+            {/*トップページ */}
+            <Box display="flex" justifyContent="flex-start" sx={{ml:6}} >
+              <Link to="/Top"
+                style={{
+                   fontSize: '1.0em'
+                  ,color:'black'
+                  ,display:'block'
+                  ,paddingRight: '100px'
+                  ,paddingBottom: '10px'
+                }}>
+                トップページ
+              </Link>
+            </Box>
+            {/*メニュー */}
+            <SimpleTreeView aria-label="basic tree" sx={simpleTreeStyles}
+              defaultExpandedItems={expanded}
+              onItemExpansionToggle={handleToggle}>
+              {menulist.map((subsys, index) => (
+                <TreeItem sx={treeItemStyles}
+                  label={<Box display="flex" justifyContent="flex-start" >{subsys.name}</Box>} itemId={subsys.id}>
+                    {subsys.children ?
+                      subsys.children.map((func, index) => (
+                        <TreeItem sx={treeItemStyles}
+                          label={<Box display="flex" justifyContent="flex-start">
+                            <Link to={func.routes} style={{color: 'black'}} onClick={handleLinkClick}>{func.name}</Link>
+                          </Box>} itemId={func.id}>
+                        </TreeItem>
+                        ))
+                     : null}
+                </TreeItem>
+              ))}
+            </SimpleTreeView>
           </Box>
-          {/*メニュー */}
-          <SimpleTreeView aria-label="basic tree" sx={simpleTreeStyles}
-            defaultExpandedItems={expanded}
-            onItemExpansionToggle={handleToggle}>
-            {menulist.map((subsys, index) => (
-              <TreeItem sx={treeItemStyles}
-                label={<Box display="flex" justifyContent="flex-start" >{subsys.name}</Box>} itemId={subsys.id}>
-                  {subsys.children ?
-                    subsys.children.map((func, index) => (
-                      <TreeItem sx={treeItemStyles}
-                        label={<Box display="flex" justifyContent="flex-start">
-                          <Link to={func.routes} style={{color: 'black'}} onClick={handleLinkClick}>{func.name}</Link>
-                        </Box>} itemId={func.id}>
-                      </TreeItem>
-                      ))
-                   : null}
-              </TreeItem>
-            ))}
-          </SimpleTreeView>
-        </Box>
-    </Drawer>
+      </Drawer>
+  </>
   );
 };
 
