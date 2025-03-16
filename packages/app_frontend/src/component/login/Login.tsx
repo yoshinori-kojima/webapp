@@ -150,7 +150,7 @@ const Login: React.FC = () => {
       >
         <Card
           sx={{
-            height: 400,
+            height: 450,
             width: { xs: 300, sm: 300, md: 300 }, // 画面幅に応じて幅を調整
             //maxWidth: { xs: 300, sm: 400, md: 500 }, // 画面幅に応じて幅を調整
             margin: 'auto',
@@ -205,6 +205,7 @@ const Login: React.FC = () => {
             {errMessage ? errMessage : ''}
           </Box>
 
+          <Typography align="center" sx={{mb:3}}>稼働時間：月～金 08:00～16:00</Typography>
           <Typography align="center">ログインID：1234</Typography>
           <Typography align="center">パスワード ：12ab34cd</Typography>
 
