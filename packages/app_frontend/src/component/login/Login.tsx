@@ -205,7 +205,7 @@ const Login: React.FC = () => {
             {errMessage ? errMessage : ''}
           </Box>
 
-          <Typography align="center" sx={{mb:3}}>稼働時間：月～金 08:00～16:00</Typography>
+          <Typography align="center" sx={{mb:3}}>稼働時間：月～金 08:00～18:00</Typography>
           <Typography align="center">ログインID：1234</Typography>
           <Typography align="center">パスワード ：12ab34cd</Typography>
 

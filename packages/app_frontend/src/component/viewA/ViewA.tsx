@@ -28,7 +28,7 @@ const ViewA: React.FC = () => {
           <SideBar />
         </Grid2>
         <Grid2 size={{xs:8,md:8}} >
-          <Typography align="center">ViewA</Typography>
+          <Typography variant="h6" align="center">ViewA</Typography>
         </Grid2>
         <Footer />
       </Grid2>
